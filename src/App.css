@@ -1,0 +1,146 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* Custom Css */
+
+.bor-rad{
+  border-radius: 18px;
+}
+*{
+  text-decoration: none;
+  list-style: none;
+  font-family: 'Rubik', sans-serif;
+}
+.gr-text{
+  color :#babfc2 !important;
+}
+body{
+  background-color: lightslategrey;
+}
+.lightslategrey{
+  color: lightslategrey;
+}
+/* .control-form{
+  outline: gray;
+  border-radius: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.432);
+  padding: 8px 16px;
+  width: 100%;
+} */
+/* input:focus{
+  outline: #037f69;
+  border: 1px solid #037f69;
+} */
+
+.form-group {
+  position: relative;
+  /* margin-bottom: 20px; */
+}
+.form-group input {
+  width: 100%;
+  padding: 10px 16px;
+  border: 1px solid lightslategrey;
+  border-radius: 16px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+.form-group label {
+  position: absolute;
+  left: 24px;
+  top: 12px;
+  font-size: 16px;
+  color: #777;
+  transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+}
+.form-group input:focus {
+  border-color: #212529;
+  outline: none;
+}
+.form-group input:focus label{
+  color: #212529 !important;
+}
+.form-group input:focus + label,
+.form-group input + label {
+  top: -10px;
+  font-size: 14px;
+  color: lightslategray;
+  background-color: #ffffff;
+  padding: 0 4px;
+  border-radius: 4px;
+  left: 20px;
+}
+.button{
+  background-color: #212529;
+  color: white;
+  transition: all 0.1s ease-in-out;
+  font-size: 18px !important;
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 14px;
+}
+.button:active{
+  background-color: white;
+  color: #212529;
+  border: 1px solid #212529;
+  transition: all 0.1s ease-in-out;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input{
+  text-transform: capitalize;
+}
+.btn:focus{
+  border: 1px solid transparent !important;
+}
+tr>td{
+  text-transform:capitalize;
+}
+.clr{
+  color: #cadcf0;
+}
+
+.pyy-2{
+  padding: 12px 14px !important;
+  border: 1px solid lightslategrey;
+  color: #777;
+}
