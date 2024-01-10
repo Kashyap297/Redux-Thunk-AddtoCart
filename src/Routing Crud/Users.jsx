@@ -12,7 +12,7 @@ const Users = ({ users, setUsers }) => {
     const handleDelete = (id) => {
         const temp = [...users]
         temp.splice(id, 1)
-        console.log(temp);
+        // console.log(temp);
         setUsers(temp)
     }
 
@@ -26,7 +26,7 @@ const Users = ({ users, setUsers }) => {
 
     return (
         <>
-            <section className='mt-5'>
+            <section className='my-5'>
                 <div className="container">
                     <div className="area p-4 px-5 bg-white bor-rad shadow">
                         <table className='table table-hover table-bordered table-rounded p-3 text-center caption-top align-middle'>

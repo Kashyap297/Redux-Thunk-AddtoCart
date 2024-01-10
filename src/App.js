@@ -11,7 +11,6 @@ import error from "./Component/images/error-404.png"
 import Filter from './Filter/Filter';
 import Products from './ReduxThunkAddtoCart/Products'
 import Cart from './ReduxThunkAddtoCart/SubComponent/Cart'
-import Items from './ReduxThunkAddtoCart/SubComponent/Items';
 
 function App() {
 
@@ -23,7 +22,7 @@ function App() {
     localStorage.setItem('list', JSON.stringify(users))
   }, [users])
 
-  console.log(users);
+  // console.log(users);
 
   return (
     <>
@@ -37,7 +36,6 @@ function App() {
           <Route path='/filter' element={<Filter users={users} setUsers={setUsers} />} />
           <Route path='/products' element={<Products />} />
           <Route path='/cart' element={<Cart />} />
-          <Route path='/item' element={<Items />} />
           <Route path='*' element={<h1 className='text-center mt-5'><img src={error} width="250px"></img></h1>} />
         </Routes>
       </BrowserRouter>

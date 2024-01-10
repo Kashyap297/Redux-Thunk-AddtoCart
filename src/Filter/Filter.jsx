@@ -87,7 +87,7 @@ const Filter = ({ users, setUsers }) => {
 
     return (
         <>
-            <section className='mt-5'>
+            <section className='my-5'>
                 <div className="container">
                     <div className="area p-4 px-5 bg-white bor-rad shadow">
                         <table className='table table-hover table-bordered table-rounded p-3 text-center caption-top align-middle'>
@@ -102,7 +102,7 @@ const Filter = ({ users, setUsers }) => {
                                         <input type="text" placeholder="Search Ott platform..." name='search' value={filterOtt} onChange={handleOtt}></input>
                                         <label>OTT</label>
                                     </div>
-                                    <button className='btn btn-dark bor-rad' onClick={handleSortButtonClick}>Sort Price{sortOrder === 'asc' ? <i class="fa-solid fa-circle-up ms-2"></i> : <i class="fa-solid fa-circle-down ms-2"></i>}</button>
+                                    <button className='btn btn-dark bor-rad' onClick={handleSortButtonClick}>Sort Price{sortOrder === 'asc' ? <i className="fa-solid fa-circle-up ms-2"></i> : <i className="fa-solid fa-circle-down ms-2"></i>}</button>
                                     <div className="form-group col-2">
                                         <select className='bor-rad w-100 pyy-2' value={selectedCategory} onChange={handleCategoryChange}>
                                             <option value="Term" className='pyy-2 bor-rad'>--Term--</option>
