@@ -8,6 +8,8 @@ const Cart = () => {
 
     const data = useSelector((state) => state.products)
 
+    
+
     return (
         <section className='my-5'>
             <div className="container">

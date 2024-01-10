@@ -9,6 +9,8 @@ const Products = () => {
 
     const dispatch = useDispatch()
     const data = useSelector((state) => state.products)
+    const cart = useSelector((state) => state.cart)
+    console.log(cart)
 
     const handleAddToCart = (id) => {
         // console.log(id);
