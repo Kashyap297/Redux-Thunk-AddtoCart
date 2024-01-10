@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import home from '../../Component/images/home.png'
 import bin from '../../Component/images/bin.png'
@@ -13,8 +13,18 @@ const Cart = () => {
     const carts = useSelector((state) => state.cart)
     const bag = useSelector((state) => state.bag)
     const totalAmount = useSelector((state) => state.totalAmount)
-    // console.log(carts);
+    console.log(carts);
     // console.log(totalAmount);    
+
+    const [noRecord, setNoRecord] = useState(false)
+    useEffect(() => {
+        if (carts.length === 0) {
+            setNoRecord(true)
+        } else {
+            setNoRecord(false)
+        }
+    }, [carts])
+
     const handleIncrement = (id) => {
         dispatch(incrementItem(id))
     }
@@ -55,34 +65,45 @@ const Cart = () => {
                                     </thead>
                                     <tbody className='table-group-divider'>
                                         {
-                                            carts.map((item, id) => {
-                                                return (
-                                                    <tr key={id}>
-                                                        <td className='d-flex justify-content-between align-items-center py-3'>
-                                                            <div className="pro-img me-3">
-                                                                <img src={item.img} alt="" className='image-fluid bor-rad' />
-                                                            </div>
-                                                            <div className="title">
-                                                                <h6 className='text-start fw-bold mb-0 clr-gr'>{item.name}</h6>
-                                                                <p className='font-sz mb-2 lightslategrey text-justify'>{item.disc}</p>
-                                                            </div>
-                                                        </td>
-                                                        <td className=''>{item.price}/-</td>
-                                                        <td className=''>
-                                                            <div className="quantity-field" >
-                                                                <button className="value-button decrease-button" onClick={() => handleDecrement(id)}>-</button>
-                                                                <div className="number">{item.qty}</div>
-                                                                <button className="value-button increase-button" onClick={() => handleIncrement(id)}>+</button>
-                                                            </div>
-                                                        </td>
-                                                        <td className=''>{item.subtotal}/-</td>
-                                                        <td className=''>
-                                                            <button className="btn btn-light" onClick={() => handleDelete(id)}>
-                                                                <img src={bin} alt="" width="24px" />
-                                                            </button></td>
+                                            noRecord ? (
+                                                <>
+                                                    <tr>
+                                                        <td className='text-center fw-bold pe-0 py-3 fs-3 text-danger' colSpan={5}>
+                                                            Empty Records</td>
+                                                        
                                                     </tr>
-                                                )
-                                            })
+                                                </>
+                                            ) : (
+
+                                                carts.map((item, id) => {
+                                                    return (
+                                                        <tr key={id}>
+                                                            <td className='d-flex justify-content-between align-items-center py-3'>
+                                                                <div className="pro-img me-3">
+                                                                    <img src={item.img} alt="" className='image-fluid bor-rad' />
+                                                                </div>
+                                                                <div className="title">
+                                                                    <h6 className='text-start fw-bold mb-0 clr-gr'>{item.name}</h6>
+                                                                    <p className='font-sz mb-2 lightslategrey text-justify'>{item.disc}</p>
+                                                                </div>
+                                                            </td>
+                                                            <td className=''>{item.price}/-</td>
+                                                            <td className=''>
+                                                                <div className="quantity-field" >
+                                                                    <button className="value-button decrease-button" onClick={() => handleDecrement(id)}>-</button>
+                                                                    <div className="number">{item.qty}</div>
+                                                                    <button className="value-button increase-button" onClick={() => handleIncrement(id)}>+</button>
+                                                                </div>
+                                                            </td>
+                                                            <td className=''>{item.subtotal}/-</td>
+                                                            <td className=''>
+                                                                <button className="btn btn-light" onClick={() => handleDelete(id)}>
+                                                                    <img src={bin} alt="" width="24px" />
+                                                                </button></td>
+                                                        </tr>
+                                                    )
+                                                })
+                                            )
                                         }
 
                                     </tbody>
