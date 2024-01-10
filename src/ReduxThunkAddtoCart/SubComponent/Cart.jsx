@@ -1,21 +1,28 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import home from '../../Component/images/home.png'
+import bin from '../../Component/images/bin.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { incrementItem } from '../Redux/Action'
 import { decrementItem } from '../Redux/Action'
+import { deleteItem } from '../Redux/Action'
 
 const Cart = () => {
 
     const dispatch = useDispatch()
     const carts = useSelector((state) => state.cart)
     const bag = useSelector((state) => state.bag)
-  
-    const handleIncrement = (id) =>{
+    const totalAmount = useSelector((state) => state.totalAmount)
+    // console.log(carts);
+    // console.log(totalAmount);    
+    const handleIncrement = (id) => {
         dispatch(incrementItem(id))
     }
     const handleDecrement = (id) => {
         dispatch(decrementItem(id))
+    }
+    const handleDelete = (id) => {
+        dispatch(deleteItem(id))
     }
 
     return (
@@ -40,9 +47,10 @@ const Cart = () => {
                                     <thead className='table-dark'>
                                         <tr>
                                             <th className='gr-text col-5'>Items</th>
-                                            <th className='gr-text col-2'>Price</th>
-                                            <th className='gr-text col-3'>Qty</th>
-                                            <th className='gr-text col-2'>Sub-Total</th>
+                                            <th className='gr-text col'>Price</th>
+                                            <th className='gr-text col'>Qty</th>
+                                            <th className='gr-text col'>Sub-Total</th>
+                                            <th className='gr-text col'>Bin</th>
                                         </tr>
                                     </thead>
                                     <tbody className='table-group-divider'>
@@ -67,7 +75,11 @@ const Cart = () => {
                                                                 <button className="value-button increase-button" onClick={() => handleIncrement(id)}>+</button>
                                                             </div>
                                                         </td>
-                                                        <td className=''>{item.subtotal}</td>
+                                                        <td className=''>{item.subtotal}/-</td>
+                                                        <td className=''>
+                                                            <button className="btn btn-light" onClick={() => handleDelete(id)}>
+                                                                <img src={bin} alt="" width="24px" />
+                                                            </button></td>
                                                     </tr>
                                                 )
                                             })
@@ -82,7 +94,7 @@ const Cart = () => {
                                     <div className="bill mt-3 px-3 border-bottom pb-3">
                                         <div className="d-flex justify-content-between align-items-center">
                                             <span className='fs-5 fw-bold clr-gr'>Sub-Total</span>
-                                            <span className='fs-5'>1000/-</span>
+                                            <span className='fs-5'>{totalAmount}/-</span>
                                         </div>
                                         <div className="d-flex justify-content-between align-items-center mt-3">
                                             <span className='fs-5 fw-bold clr-gr'>Delivery Charges</span>
@@ -91,7 +103,7 @@ const Cart = () => {
                                     </div>
                                     <div className="d-flex justify-content-between align-items-center mt-3 px-3 border-bottom pb-3">
                                         <span className='fs-5 fw-bold clr-gr'>Grand Total</span>
-                                        <span className='fs-4 fw-bold'>1000/-</span>
+                                        <span className='fs-4 fw-bold'>{totalAmount}/-</span>
                                     </div>
                                 </div>
                             </div>

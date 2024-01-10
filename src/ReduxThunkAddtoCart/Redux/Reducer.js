@@ -11,7 +11,8 @@ const INITIAL_VALUE = {
         { id: 3, name: "Boat Smart-Watch", disc: "A portable device worn on the wrist that supports apps and acts as an extension of your mobile phone in some cases.", img: watch, qty: 1, price: 3299 },
     ],
     cart: [],
-    bag: 0 //here bag means : No. of products in cart
+    bag: 0, //here bag means : No. of products in cart
+    totalAmount: 0
 }
 
 const addCartReducer = (state = INITIAL_VALUE, action) => {
@@ -23,19 +24,20 @@ const addCartReducer = (state = INITIAL_VALUE, action) => {
 
             if (!state.cart || state.cart.length === 0) {
                 const newItem = { ...state.products[action.payload], qty: 1, subtotal: state.products[action.payload].price }
-                return { ...state, cart: [newItem], bag: 1 };
+                return { ...state, cart: [newItem], bag: 1, totalAmount: newItem.subtotal };
             } else {
                 const checkCart = [...state.cart].some((e) => {
                     if (e.name === state.products[action.payload].name) {
-                        e.qty++
-                        e.subtotal = e.qty * e.price
+                        e.qty++;
+                        e.subtotal = e.qty * e.price;
                         return true
                     }
+                    return false
                 })
 
                 if (!checkCart) {
                     const newItem = { ...state.products[action.payload], qty: 1, subtotal: state.products[action.payload].price };
-                    return { ...state, cart: [...state.cart, newItem], bag: state.bag + 1 };
+                    return { ...state, cart: [...state.cart, newItem], bag: state.bag + 1, totalAmount: state.totalAmount + newItem.subtotal };
                 }
             }
             return state
@@ -43,13 +45,14 @@ const addCartReducer = (state = INITIAL_VALUE, action) => {
         case 'ITEM_INCREMENT':
             var itemIndex = action.payload;
             const incrementedItem = state.cart.map((item, index) => {
-                console.log(item);
+                // console.log(item);
                 if (index === itemIndex) {
                     return { ...item, qty: item.qty + 1, subtotal: (item.qty + 1) * item.price }
                 }
                 return item
             })
-            return { ...state, cart: incrementedItem }
+            const updatedTotalIncrement = incrementedItem.reduce((total, item) => total + item.subtotal, 0);
+            return { ...state, cart: incrementedItem, totalAmount: updatedTotalIncrement }
 
         case 'ITEM_DECREMENT':
             var itemIndex = action.payload;
@@ -59,10 +62,23 @@ const addCartReducer = (state = INITIAL_VALUE, action) => {
                 } else if (index === itemIndex && item.qty === 1) {
                     return null
                 }
+                
                 return item
             }).filter(Boolean);
+            const updatedTotalDecrement = decrementedItem.reduce((total, item) => total + item.subtotal, 0);
+            return { ...state, cart: decrementedItem, totalAmount: updatedTotalDecrement }
 
-            return { ...state, cart: decrementedItem }
+        case 'ITEM_DELETE':
+            const deleteItemIndex = action.payload
+            const deleteItem = state.cart[deleteItemIndex]
+
+            if (deleteItem) {
+                const updatedTotalAmount = state.totalAmount - deleteItem.subtotal;
+                const updatedCart = state.cart.filter((item, index) => index !== deleteItemIndex);
+                return { ...state, cart: updatedCart, bag: state.bag - 1, totalAmount: updatedTotalAmount };
+            }
+            return state
+
         default:
             return state
     }

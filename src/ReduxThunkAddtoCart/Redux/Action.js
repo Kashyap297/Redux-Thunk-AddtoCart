@@ -14,18 +14,26 @@ export const addToCart = (id) => {
 }
 
 export const incrementItem = (id) => {
-    return(dispatch) => {
+    return (dispatch) => {
         dispatch({
-            type : "ITEM_INCREMENT",
-            payload : id,
+            type: "ITEM_INCREMENT",
+            payload: id,
         })
     }
 }
 export const decrementItem = (id) => {
-    return(dispatch) => {
+    return (dispatch) => {
         dispatch({
-            type : "ITEM_DECREMENT",
-            payload : id,
+            type: "ITEM_DECREMENT",
+            payload: id,
+        })
+    }
+}
+export const deleteItem = (id) => {
+    return (dispatch) => {
+        dispatch({
+            type: "ITEM_DELETE",
+            payload: id,
         })
     }
 }

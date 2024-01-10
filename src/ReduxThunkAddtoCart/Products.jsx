@@ -10,8 +10,8 @@ const Products = () => {
     const dispatch = useDispatch()
     const products = useSelector((state) => state.products)
     const bag = useSelector((state) => state.bag)
-
-    console.log(bag)
+    
+    // console.log(bag)
 
     const handleAddToCart = (id) => {
         // console.log(id);
