@@ -1,14 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import home from '../../Component/images/home.png'
-import { useSelector } from 'react-redux'
-import headphone from '../../Component/images/headphones.jpg'
+import { useDispatch, useSelector } from 'react-redux'
+import { incrementItem } from '../Redux/Action'
+import { decrementItem } from '../Redux/Action'
 
 const Cart = () => {
 
-    const data = useSelector((state) => state.products)
-
-    
+    const dispatch = useDispatch()
+    const carts = useSelector((state) => state.cart)
+    const bag = useSelector((state) => state.bag)
+  
+    const handleIncrement = (id) =>{
+        dispatch(incrementItem(id))
+    }
+    const handleDecrement = (id) => {
+        dispatch(decrementItem(id))
+    }
 
     return (
         <section className='my-5'>
@@ -19,13 +27,13 @@ const Cart = () => {
                             <p className='m-0 gr-text fs-5'>Shopping Cart</p>
                             <div className="cart-item d-flex">
                                 <div className="cart p-2 me-3">
-                                    4 items
+                                    {bag} items
                                 </div>
                                 <Link to='/products' className='btn btn-light align-items-center'>Products<img src={home} alt="" width="24px" className='ms-2' /></Link>
                             </div>
                         </div>
                     </header>
-                    <div className="cart_area border mt-4 p-3 bor-rad border">
+                    <div className="cart_area border shadow mt-4 p-3 bor-rad ">
                         <div className="row">
                             <div className="col-8">
                                 <table className='table table-hover mb-0 table-bordered table-rounded p-3 text-center align-middle'>
@@ -39,7 +47,7 @@ const Cart = () => {
                                     </thead>
                                     <tbody className='table-group-divider'>
                                         {
-                                            data.map((item, id) => {
+                                            carts.map((item, id) => {
                                                 return (
                                                     <tr key={id}>
                                                         <td className='d-flex justify-content-between align-items-center py-3'>
@@ -54,12 +62,12 @@ const Cart = () => {
                                                         <td className=''>{item.price}/-</td>
                                                         <td className=''>
                                                             <div className="quantity-field" >
-                                                                <button className="value-button decrease-button" title="">-</button>
+                                                                <button className="value-button decrease-button" onClick={() => handleDecrement(id)}>-</button>
                                                                 <div className="number">{item.qty}</div>
-                                                                <button className="value-button increase-button" title="">+</button>
+                                                                <button className="value-button increase-button" onClick={() => handleIncrement(id)}>+</button>
                                                             </div>
                                                         </td>
-                                                        <td className=''>10000/-</td>
+                                                        <td className=''>{item.subtotal}</td>
                                                     </tr>
                                                 )
                                             })

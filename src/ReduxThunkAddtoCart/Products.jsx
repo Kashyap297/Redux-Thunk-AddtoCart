@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import cart from '../Component/images/cart.png'
+import carticon from '../Component/images/cart.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from './Redux/Action'
 
@@ -8,9 +8,10 @@ import { addToCart } from './Redux/Action'
 const Products = () => {
 
     const dispatch = useDispatch()
-    const data = useSelector((state) => state.products)
-    const cart = useSelector((state) => state.cart)
-    console.log(cart)
+    const products = useSelector((state) => state.products)
+    const bag = useSelector((state) => state.bag)
+
+    console.log(bag)
 
     const handleAddToCart = (id) => {
         // console.log(id);
@@ -26,16 +27,16 @@ const Products = () => {
                             <p className='m-0 gr-text fs-5'>Smart Devices</p>
                             <div className="cart-item d-flex">
                                 <div className="cart p-2 me-3">
-                                    Bag : 0
+                                    Bag : {bag}
                                 </div>
-                                <Link to='/cart' className='btn btn-light'>Cart<img src={cart} alt="" width="24px" className='ms-2' /></Link>
+                                <Link to='/cart' className='btn btn-light'>Cart<img src={carticon} alt="" width="24px" className='ms-2' /></Link>
                             </div>
                         </div>
                     </header>
                     <div className="product_area mt-4">
                         <div className="row">
                             {
-                                data.map((item, id) => {
+                                products.map((item, id) => {
                                     return (
                                         <div className="col-3" key={id}>
                                             <div className="product border-1 bor-r  pad-sm shadow">

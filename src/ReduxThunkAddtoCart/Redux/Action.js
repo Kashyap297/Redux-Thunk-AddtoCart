@@ -12,3 +12,20 @@ export const addToCart = (id) => {
     //     payload : id,
     // }
 }
+
+export const incrementItem = (id) => {
+    return(dispatch) => {
+        dispatch({
+            type : "ITEM_INCREMENT",
+            payload : id,
+        })
+    }
+}
+export const decrementItem = (id) => {
+    return(dispatch) => {
+        dispatch({
+            type : "ITEM_DECREMENT",
+            payload : id,
+        })
+    }
+}
