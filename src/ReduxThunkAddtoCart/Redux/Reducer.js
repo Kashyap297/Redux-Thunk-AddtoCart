@@ -45,7 +45,7 @@ const addCartReducer = (state = INITIAL_VALUE, action) => {
             const incrementedItem = state.cart.map((item, index) => {
                 console.log(item);
                 if (index === itemIndex) {
-                    return { ...item, qty: item.qty + 1 }
+                    return { ...item, qty: item.qty + 1, subtotal: (item.qty + 1) * item.price }
                 }
                 return item
             })
@@ -55,7 +55,7 @@ const addCartReducer = (state = INITIAL_VALUE, action) => {
             var itemIndex = action.payload;
             const decrementedItem = state.cart.map((item, index) => {
                 if (index === itemIndex && item.qty > 1) {
-                    return { ...item, qty: item.qty - 1 }
+                    return { ...item, qty: item.qty - 1, subtotal: (item.qty - 1) * item.price }
                 } else if (index === itemIndex && item.qty === 1) {
                     return null
                 }
