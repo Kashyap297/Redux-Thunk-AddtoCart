@@ -26,7 +26,8 @@ const addCartReducer = (state = INITIAL_VALUE, action) => {
                 const newItem = { ...state.products[action.payload], qty: 1, subtotal: state.products[action.payload].price }
                 return { ...state, cart: [newItem], bag: 1, totalAmount: newItem.subtotal };
             } else {
-                const checkCart = [...state.cart].some((e) => {
+                const tempCart = [...state.cart]
+                const checkCart = tempCart.some((e) => {
                     if (e.name === state.products[action.payload].name) {
                         e.qty++;
                         e.subtotal = e.qty * e.price;
@@ -35,12 +36,15 @@ const addCartReducer = (state = INITIAL_VALUE, action) => {
                     return false
                 })
 
+
                 if (!checkCart) {
                     const newItem = { ...state.products[action.payload], qty: 1, subtotal: state.products[action.payload].price };
                     return { ...state, cart: [...state.cart, newItem], bag: state.bag + 1, totalAmount: state.totalAmount + newItem.subtotal };
+                } else {
+                    const grandTotal = tempCart.reduce((total, item) => total + item.subtotal, 0);
+                    return { ...state, cart: tempCart, totalAmount: grandTotal };
                 }
             }
-            return state
 
         case 'ITEM_INCREMENT':
             var itemIndex = action.payload;
@@ -51,22 +55,26 @@ const addCartReducer = (state = INITIAL_VALUE, action) => {
                 }
                 return item
             })
+            console.log('incrementedItem', incrementedItem)
             const updatedTotalIncrement = incrementedItem.reduce((total, item) => total + item.subtotal, 0);
+            console.log('updatedTotalIncrement', updatedTotalIncrement)
             return { ...state, cart: incrementedItem, totalAmount: updatedTotalIncrement }
 
         case 'ITEM_DECREMENT':
             var itemIndex = action.payload;
+            let bag = state.bag
             const decrementedItem = state.cart.map((item, index) => {
                 if (index === itemIndex && item.qty > 1) {
                     return { ...item, qty: item.qty - 1, subtotal: (item.qty - 1) * item.price }
                 } else if (index === itemIndex && item.qty === 1) {
+                    bag -= 1
                     return null
                 }
-                
                 return item
             }).filter(Boolean);
+            // console.log(decrementedItem)
             const updatedTotalDecrement = decrementedItem.reduce((total, item) => total + item.subtotal, 0);
-            return { ...state, cart: decrementedItem, totalAmount: updatedTotalDecrement }
+            return { ...state, cart: decrementedItem, totalAmount: updatedTotalDecrement,bag }
 
         case 'ITEM_DELETE':
             const deleteItemIndex = action.payload
