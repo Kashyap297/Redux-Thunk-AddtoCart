@@ -68,8 +68,8 @@ const Cart = () => {
                                             noRecord ? (
                                                 <>
                                                     <tr>
-                                                        <td className='text-center fw-bold pe-0 py-3 fs-3 text-danger' colSpan={5}>
-                                                            Empty Records</td>
+                                                        <td className='text-center fw-bold pe-0 py-3 fs-4 text-danger' colSpan={5}>
+                                                        cart is feeling a bit lonely</td>
                                                         
                                                     </tr>
                                                 </>
